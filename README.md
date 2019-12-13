@@ -1,7 +1,7 @@
-
-コンパイルはこんな感じ
+## Build drivers
+```
 gcc -o motor motor.c -lwiringPi
 gcc -o sonic sonic.c -lwiringPi
-
-motorを実行するにはsudoが必要
+```
+Note: you need sudo when driving motors.
 
