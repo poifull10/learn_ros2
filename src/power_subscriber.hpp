@@ -15,7 +15,7 @@ public:
   PowerSubscriber() : rclcpp::Node("power_subscriber")
   {
     subscription_ = this->create_subscription<std_msgs::msg::String>(
-      "power_ops", 10, std::bind(&PowerSubscriber::topic_callback, this, _1));
+      "power_ops", 30, std::bind(&PowerSubscriber::topic_callback, this, _1));
   }
 
 private:
