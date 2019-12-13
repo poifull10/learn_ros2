@@ -31,7 +31,7 @@ private:
     }
     else
     {
-      RCLCPP_ERROR(this->get_logger(), "Receive unknown string '%s'", msg->data.c_str());
+      RCLCPP_ERROR(this->get_logger(), "Receive unknown string " + msg->data);
     }
   }
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
