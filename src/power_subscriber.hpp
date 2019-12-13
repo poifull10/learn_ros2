@@ -23,15 +23,15 @@ private:
   {
     if (msg->data == "1")
     {
-      RCLCPP_INFO(this->get_logger(), "Recieve power-on");
+      RCLCPP_INFO(this->get_logger(), "Receive power-on");
     }
     else if (msg->data == "0")
     {
-      RCLCPP_INFO(this->get_logger(), "Recieve power-off");
+      RCLCPP_INFO(this->get_logger(), "Receive power-off");
     }
     else
     {
-      RCLCPP_ERROR(this->get_logger(), "Unknown string '%s'", msg->data.c_str());
+      RCLCPP_ERROR(this->get_logger(), "Receive unknown string '%s'", msg->data.c_str());
     }
   }
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
