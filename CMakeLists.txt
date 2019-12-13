@@ -41,4 +41,9 @@ ament_target_dependencies(controller rclcpp geometry_msgs)
 install(TARGETS controller	
 	DESTINATION lib/${PROJECT_NAME})
 
+add_executable(power src/power_subscriber.cpp)	
+ament_target_dependencies(power rclcpp std_msgs)	
+install(TARGETS power	
+	DESTINATION lib/${PROJECT_NAME})
+
 ament_package()
