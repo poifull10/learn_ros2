@@ -9,7 +9,17 @@ jobs:
       - checkout
 
       - run:
-          name: build
+          name: build-ros2
           command: |
             source /opt/ros/dashing/setup.bash
             colcon build
+
+      - run:
+          name: build-drivers
+          command: |
+            git submodule update --init
+            cd third_party/WiringPi
+            ./build
+            cd ../../driver
+            gcc -o motor motor.c  -lwiringPi -I../third_party/WiringPi -pthread -lm -lcrypt -lrt
+            gcc -o sonic sonic.c  -lwiringPi -I../third_party/WiringPi -pthread -lm -lcrypt -lrt
