@@ -17,33 +17,22 @@ find_package(sensor_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(sensor src/sensor.cpp)	
-ament_target_dependencies(sensor rclcpp geometry_msgs)	
-install(TARGETS sensor	
-  DESTINATION lib/${PROJECT_NAME})
+add_executable(sensor src/sensor.cpp)
+ament_target_dependencies(sensor rclcpp geometry_msgs)
 
 add_executable(image src/image_publisher.cpp)
 ament_target_dependencies(image rclcpp sensor_msgs)
-install(TARGETS image
+
+add_executable(controller src/controller.cpp)
+ament_target_dependencies(controller rclcpp geometry_msgs)
+
+add_executable(power src/power_subscriber.cpp)
+ament_target_dependencies(power rclcpp std_msgs)
+
+install(TARGETS sensor power image controller
   DESTINATION lib/${PROJECT_NAME})
-
-add_executable(controller src/controller.cpp)	
-ament_target_dependencies(controller rclcpp geometry_msgs)	
-install(TARGETS controller	
-	DESTINATION lib/${PROJECT_NAME})
-
-add_executable(power src/power_subscriber.cpp)	
-ament_target_dependencies(power rclcpp std_msgs)	
-install(TARGETS power	
-	DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
