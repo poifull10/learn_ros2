@@ -11,4 +11,5 @@ jobs:
       - run:
           name: build
           command: |
+            source /opt/ros/dashing/setup.bash
             colcon build
