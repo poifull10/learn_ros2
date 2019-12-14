@@ -11,14 +11,14 @@ extern "C"
 // モーターの出力を制御する。
 // min 0%のとき0、max 100%のとき100を引数とする。
 
-int bc::control_motor(uint powerPercentage)
+void bc::control_motor(uint powerPercentage)
 {
   // ガード処理
   const auto powerPercentage_ = std::clamp(powerPercentage, static_cast<bc::uint>(0), static_cast<bc::uint>(100));
 
   if (wiringPiSetupGpio() == -1)
   {
-    return 1;
+    return;
   }
 
   int gpio_18 = 18;
@@ -49,5 +49,4 @@ int bc::control_motor(uint powerPercentage)
   pwmSetRange(range);
   pwmWrite(gpio_18, duty);
 
-  return 0;
 }

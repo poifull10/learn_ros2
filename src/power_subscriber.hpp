@@ -27,6 +27,6 @@ private:
     bc::control_motor(static_cast<bc::uint>(level));
   }
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
-}; // namespace ros2_mock
+};
 
 } // namespace ros2_mock
