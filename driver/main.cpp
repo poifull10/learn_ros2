@@ -11,7 +11,7 @@ int main(int argc, char** argv)
     std::cout << "q: quit" << std::endl;
     std::cout << "?>" << std::endl;
     std::cin >> buf;
-    const int value = std::atoi(argv[1]);
+    const float value = std::stof(buf);
     bc::control_motor(value);
   }
   return 0;
