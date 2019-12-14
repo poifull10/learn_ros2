@@ -9,7 +9,7 @@ extern "C"
 // 0 ~ 100のパーセンテージを引数として
 // モーターの出力を制御する。
 // min 0%のとき0、max 100%のとき100を引数とする。
-int motor_control(unsigned int powerPercentage)
+int control_motor(unsigned int powerPercentage)
 {
   // ガード処理
   const auto powerPercentage_ = std::clamp(powerPercentage, 0, 100);
