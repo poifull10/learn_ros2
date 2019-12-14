@@ -13,7 +13,7 @@ jobs:
           command: |
             source /opt/ros/dashing/setup.bash
             git submodule update --init
-            cd third_party/WiringPi
+            cd driver/WiringPi
             ./build
             cd ../../
             colcon build
