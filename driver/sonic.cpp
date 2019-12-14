@@ -50,10 +50,8 @@ int pulseIn(int pin, int level, int timeout)
   return micros;
 }
 
-int measure_sonic(int argc, char **argv)
+float measure_sonic()
 {
-  int i, j, k, l, m;
-  long duration, distance;
 
   if (wiringPiSetupGpio() == -1)
     return 1;
@@ -65,8 +63,9 @@ int measure_sonic(int argc, char **argv)
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10); // Added this line
   digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH, 1000000);
+  long duration = pulseIn(echoPin, HIGH, 1000000);
   // printf("duration=%ld\n", duration);
-  distance = (duration / 2) / 29.1;
+  float distance = (duration / 2) / 29.1;
   // printf("distance=%ld cm\n", distance);
+  return distance;
 }
