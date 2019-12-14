@@ -28,7 +28,7 @@ ament_target_dependencies(image rclcpp sensor_msgs OpenCV)
 
 add_executable(power src/power_subscriber.cpp)
 target_link_libraries(power raspidriver)
-ament_target_dependencies(power rclcpp std_msgs)
+ament_target_dependencies(power rclcpp sensor_msgs)
 
 install(TARGETS power image DESTINATION lib/${PROJECT_NAME})
 
