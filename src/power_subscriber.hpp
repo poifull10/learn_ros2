@@ -22,10 +22,11 @@ public:
 private:
   void topic_callback(const sensor_msgs::msg::Joy::SharedPtr msg) const
   {
-    const auto axis_value = msg->axes[0];
+    constexpr bc::uint LEFT_STICK_UP = 1;
+    const auto axis_value = msg->axes[LEFT_STICK_UP];
     if (std::abs(axis_value) >= 0.1) {
       const auto value = static_cast<bc::uint>(std::abs(axis_value) * 100);
-      RCLCPP_INFO(this->get_logger(), "Receive power ENABLE :" + std::to_string(value) + " / 100");
+      RCLCPP_INFO(this->get_logger(), "Receive power ENABLE :" + std::to_string(value));
       bc::control_motor(value);
     }else{
       RCLCPP_INFO(this->get_logger(), "Receive power DISABLE");
