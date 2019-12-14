@@ -1,11 +1,17 @@
-## Build drivers
+## Build
 ```
 git submodule update --init
 cd third_party/WiringPi
 ./build
 cd ../../
-gcc -o motor motor.c  -lwiringPi -I../third_party/WiringPi -pthread -lm -lcrypt -lrt
-gcc -o sonic sonic.c  -lwiringPi -I../third_party/WiringPi -pthread -lm -lcrypt -lrt
+colcon build
 ```
-Note: you need sudo when driving motors.
 
+## Run
+```
+$ tmux
+Ctrl-b %
+$ ros2 run blackchicken image
+Ctrl-b o
+$ ros2 run blackchicken power
+```
