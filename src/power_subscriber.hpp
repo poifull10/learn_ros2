@@ -2,12 +2,13 @@
 
 #include <memory>
 
+#include "bc_driver.h"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
 using std::placeholders::_1;
 
-namespace ros2_mock
+namespace bc
 {
 class PowerSubscriber : public rclcpp::Node
 {
@@ -37,4 +38,4 @@ private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
 }; // namespace ros2_mock
 
-} // namespace ros2_mock
+} // namespace bc

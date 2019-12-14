@@ -11,7 +11,6 @@ endif()
 
 add_subdirectory(driver)
 
-# find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -21,7 +20,6 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
-
 
 add_executable(sensor src/sensor.cpp)
 ament_target_dependencies(sensor rclcpp geometry_msgs)
@@ -33,9 +31,9 @@ add_executable(controller src/controller.cpp)
 ament_target_dependencies(controller rclcpp geometry_msgs)
 
 add_executable(power src/power_subscriber.cpp)
+target_link_libraries(power raspidriver)
 ament_target_dependencies(power rclcpp std_msgs)
 
-install(TARGETS sensor power image controller
-  DESTINATION lib/${PROJECT_NAME})
+install(TARGETS sensor power image controller DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

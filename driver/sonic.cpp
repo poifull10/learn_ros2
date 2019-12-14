@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+#include "bc_driver.h"
+
 extern "C"
 {
 #include "wiringPi/wiringPi.h"
