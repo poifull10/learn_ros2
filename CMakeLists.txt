@@ -33,6 +33,7 @@ add_executable(controller src/controller.cpp)
 ament_target_dependencies(controller rclcpp geometry_msgs)
 
 add_executable(power src/power_subscriber.cpp)
+target_link_libraries(power raspidriver)
 ament_target_dependencies(power rclcpp std_msgs)
 
 install(TARGETS sensor power image controller
