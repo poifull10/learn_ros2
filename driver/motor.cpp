@@ -11,13 +11,7 @@ extern "C"
 int motor_control(unsigned int powerPercentage)
 {
   // ガード処理
-  if(powerPercentage < 0){
-    powerPercentage = 0;
-  }else if(powerPercentage > 100){
-    powerPercentage = 100;
-  }else{
-    //do nothing
-  }
+  const auto powerPercentage = std::clamp(powerPercentage, 0, 100);
 
   if (wiringPiSetupGpio() == -1)
   {
