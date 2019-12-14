@@ -1,4 +1,4 @@
-
+#include "bc_driver.h"
 #include <stdlib.h>
 #include <sys/time.h>
 
@@ -7,8 +7,9 @@ extern "C"
 #include "wiringPi/wiringPi.h"
 }
 
-#define trigPin 2
-#define echoPin 3
+constexpr uint trigPin = 2;
+constexpr uint echoPin = 3;
+
 
 int pulseIn(int pin, int level, int timeout)
 {
@@ -50,11 +51,10 @@ int pulseIn(int pin, int level, int timeout)
   return micros;
 }
 
-float measure_sonic()
+float bc::measure_sonic()
 {
-
   if (wiringPiSetupGpio() == -1)
-    return 1;
+    return -1;
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 

@@ -1,3 +1,4 @@
+#include "bc_driver.h"
 #include <unistd.h>
 #include <algorithm>
 
@@ -9,15 +10,15 @@ extern "C"
 // 0 ~ 100のパーセンテージを引数として
 // モーターの出力を制御する。
 // min 0%のとき0、max 100%のとき100を引数とする。
-int control_motor(unsigned int powerPercentage)
+
+void bc::control_motor(uint powerPercentage)
 {
   // ガード処理
-  using uint = unsigned int;
-  const auto powerPercentage_ = std::clamp(powerPercentage, static_cast<uint>(0), static_cast<uint>(100));
+  const auto powerPercentage_ = std::clamp(powerPercentage, static_cast<bc::uint>(0), static_cast<bc::uint>(100));
 
   if (wiringPiSetupGpio() == -1)
   {
-    return 1;
+    return;
   }
 
   int gpio_18 = 18;
@@ -48,5 +49,4 @@ int control_motor(unsigned int powerPercentage)
   pwmSetRange(range);
   pwmWrite(gpio_18, duty);
 
-  return 0;
 }

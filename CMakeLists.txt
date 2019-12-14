@@ -23,21 +23,13 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-
-add_executable(sensor src/sensor.cpp)
-ament_target_dependencies(sensor rclcpp geometry_msgs)
-
 add_executable(image src/image_publisher.cpp)
 ament_target_dependencies(image rclcpp sensor_msgs OpenCV)
-
-add_executable(controller src/controller.cpp)
-ament_target_dependencies(controller rclcpp geometry_msgs)
 
 add_executable(power src/power_subscriber.cpp)
 target_link_libraries(power raspidriver)
 ament_target_dependencies(power rclcpp std_msgs)
 
-install(TARGETS sensor power image controller
-  DESTINATION lib/${PROJECT_NAME})
+install(TARGETS power image DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

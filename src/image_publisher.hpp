@@ -11,7 +11,7 @@
 using std::placeholders::_1;
 using namespace std::chrono;
 
-namespace ros2_mock
+namespace bc
 {
 class ImagePublisher : public rclcpp::Node
 {
