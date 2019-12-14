@@ -2,7 +2,6 @@
 
 namespace bc
 {
-  using uint = unsigned int;
-  void control_motor(uint powerPercentage);
+  void control_motor(float powerPercentage);
   float measure_sonic();
 }
