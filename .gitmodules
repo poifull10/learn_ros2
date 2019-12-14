@@ -1,3 +1,6 @@
 [submodule "third_party/WiringPi"]
 	path = third_party/WiringPi
 	url = https://github.com/WiringPi/WiringPi.git
+[submodule "driver/WiringPi"]
+	path = driver/WiringPi
+	url = https://github.com/WiringPi/WiringPi.git
