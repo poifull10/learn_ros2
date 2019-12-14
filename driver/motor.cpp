@@ -12,7 +12,8 @@ extern "C"
 int control_motor(unsigned int powerPercentage)
 {
   // ガード処理
-  const auto powerPercentage_ = std::clamp(powerPercentage, 0, 100);
+  using uint = unsigned int;
+  const auto powerPercentage_ = std::clamp(powerPercentage, static_cast<uint>(0), static_cast<uint>(100));
 
   if (wiringPiSetupGpio() == -1)
   {
