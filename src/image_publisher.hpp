@@ -13,10 +13,12 @@ using namespace std::chrono;
 
 namespace bc
 {
+
+
 class ImagePublisher : public rclcpp::Node
 {
 public:
-  ImagePublisher() : rclcpp::Node("image_publisher")
+  ImagePublisher() : rclcpp::Node("image_publisher"), cap(0)
   {
     publisher_ =
       this->create_publisher<sensor_msgs::msg::Image>("raw_image", 20);
@@ -29,7 +31,8 @@ public:
   void timer_callback()
   {
     cv::Mat frame;
-    frame = cv::imread("/src/yahoo.jpg");
+    cap >> frame;
+    cv::resize(frame, frame, cv::Size(), 0.5, 0.5);
     auto message = std::make_unique<sensor_msgs::msg::Image>();
     message->is_bigendian = false;
     convert_frame_to_message(frame, frame_id_++, *message);
@@ -40,6 +43,7 @@ private:
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr publisher_;
   size_t frame_id_;
+  cv::VideoCapture cap;
 
   /*
    * CV array type to ROS sensor_msgs/Image type
