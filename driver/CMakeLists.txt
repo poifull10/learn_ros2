@@ -3,5 +3,6 @@ project(raspidriver)
 
 add_library(raspidriver motor.cpp sonic.cpp)
 set_target_properties(raspidriver PROPERTIES CXX_STANDARD 17)
-set_target_properties(raspidriver PROPERTIES INCLUDE_DIRECTORIES ${blackchicken_SOURCE_DIR}/third_party/WiringPi)
-set_target_properties(raspidriver PROPERTIES COMPILE_OPTIONS "-lwiringPi -pthread -lm -lcrypt -lrt")
+target_include_directories(raspidriver SYSTEM PUBLIC ${raspidriver_SOURCE_DIR})
+target_include_directories(raspidriver SYSTEM PUBLIC ${raspidriver_SOURCE_DIR}/WiringPi)
+set_target_properties(raspidriver PROPERTIES LINK_FLAGS "-lwiringPi -pthread -lm -lcrypt -lrt")
