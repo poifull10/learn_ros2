@@ -16,6 +16,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(OpenCV REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -27,7 +28,7 @@ add_executable(sensor src/sensor.cpp)
 ament_target_dependencies(sensor rclcpp geometry_msgs)
 
 add_executable(image src/image_publisher.cpp)
-ament_target_dependencies(image rclcpp sensor_msgs)
+ament_target_dependencies(image rclcpp sensor_msgs OpenCV)
 
 add_executable(controller src/controller.cpp)
 ament_target_dependencies(controller rclcpp geometry_msgs)
