@@ -4,10 +4,11 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "bc_driver.h"
 
 using std::placeholders::_1;
 
-namespace ros2_mock
+namespace bc
 {
 class PowerSubscriber : public rclcpp::Node
 {
