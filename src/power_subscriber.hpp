@@ -24,7 +24,7 @@ private:
   {
     const auto axis_value = msg->axes[0];
     if (std::abs(axis_value) >= 0.1) {
-      const auto value = std::static_cast<bc::uint>(std::abs(axis_value) * 100);
+      const auto value = static_cast<bc::uint>(std::abs(axis_value) * 100);
       RCLCPP_INFO(this->get_logger(), "Receive power ENABLE :" + std::to_string(value) + " / 100");
       bc::control_motor(value);
     }else{
