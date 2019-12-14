@@ -6,7 +6,7 @@
 
 using std::placeholders::_1;
 
-namespace ros2_mock {
+namespace bc {
 class ControllerNode : public rclcpp::Node {
 public:
   ControllerNode() : rclcpp::Node("controller") {
