@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <algorithm>
 
 extern "C"
 {
@@ -11,7 +12,7 @@ extern "C"
 int motor_control(unsigned int powerPercentage)
 {
   // ガード処理
-  const auto powerPercentage = std::clamp(powerPercentage, 0, 100);
+  const auto powerPercentage_ = std::clamp(powerPercentage, 0, 100);
 
   if (wiringPiSetupGpio() == -1)
   {
@@ -32,7 +33,7 @@ int motor_control(unsigned int powerPercentage)
   int range = 1024;
 
   double interval = 10.0; // 10ms
-  double pulse = interval * powerPercentage / 100;
+  double pulse = interval * powerPercentage_ / 100;
 
   double dutyRatio = pulse / interval;
 
