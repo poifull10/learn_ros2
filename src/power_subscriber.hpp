@@ -16,7 +16,7 @@ public:
   PowerSubscriber() : rclcpp::Node("power_subscriber")
   {
     subscription_ = this->create_subscription<sensor_msgs::msg::Joy>(
-      "power_ops", 30, std::bind(&PowerSubscriber::topic_callback, this, _1));
+      "/joy", 30, std::bind(&PowerSubscriber::topic_callback, this, _1));
   }
 
 private:
