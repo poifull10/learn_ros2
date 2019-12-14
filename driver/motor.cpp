@@ -5,8 +5,20 @@ extern "C"
 #include "wiringPi/wiringPi.h"
 }
 
-int measure_motor()
+// 0 ~ 100のパーセンテージを引数として
+// モーターの出力を制御する。
+// min 0%のとき0、max 100%のとき100を引数とする。
+int motor_control(unsigned int powerPercentage)
 {
+  // ガード処理
+  if(powerPercentage < 0){
+    powerPercentage = 0;
+  }else if(powerPercentage > 100){
+    powerPercentage = 100;
+  }else{
+    //do nothing
+  }
+
   if (wiringPiSetupGpio() == -1)
   {
     return 1;
@@ -26,7 +38,7 @@ int measure_motor()
   int range = 1024;
 
   double interval = 10.0; // 10ms
-  double pulse = 0.0;     // 0ms
+  double pulse = interval * powerPercentage / 100;
 
   double dutyRatio = pulse / interval;
 
@@ -38,17 +50,7 @@ int measure_motor()
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock(clock);
   pwmSetRange(range);
-
-  pulse = 9.9;
-  while (1)
-  {
-
-    dutyRatio = pulse / interval;
-    duty = (int)(dutyRatio * range);
-    pwmWrite(gpio_18, duty);
-
-    sleep(1);
-  }
+  pwmWrite(gpio_18, duty);
 
   return 0;
 }
