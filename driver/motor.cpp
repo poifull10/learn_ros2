@@ -11,17 +11,17 @@ extern "C"
 // モーターの出力を制御する。
 // min 0%のとき0、max 100%のとき100を引数とする。
 
-void bc::control_motor(uint powerPercentage)
+void bc::control_motor(float powerPercentage)
 {
-  // ガード処理
-  const auto powerPercentage_ = std::clamp(powerPercentage, static_cast<bc::uint>(0), static_cast<bc::uint>(100));
 
   if (wiringPiSetupGpio() == -1)
   {
     return;
   }
 
-  int gpio_18 = 18;
+  const auto powerStrength = std::clamp(std::abs(powerPercentage), static_cast<float>(0), static_cast<float>(100));
+  constexpr int gpio_forward = 18;
+  constexpr int gpio_backward = 15;
 
   // PWMの式
   // PWM周波数 = 19.2MHz / clock / range
@@ -31,22 +31,25 @@ void bc::control_motor(uint powerPercentage)
   // wiringPiでは rangeを1024固定とし、clockとduty
   //の2つのパラメータで制御する。
 
-  int baseclock = 19200000;
-  int range = 1024;
+  constexpr unsigned int baseclock = 19200000;
+  constexpr unsigned int range = 1024;
+  constexpr double interval = 10.0; // 10ms
+  constexpr double hz = 1 / (interval * 0.001);
+  constexpr int clock = (baseclock / range / hz);
 
-  double interval = 10.0; // 10ms
-  double pulse = interval * powerPercentage_ / 100;
-
+  double pulse = interval * powerStrength / 100;
   double dutyRatio = pulse / interval;
+  int duty = (dutyRatio * range);
 
-  double hz = 1 / (interval * 0.001);
-  int clock = (int)(baseclock / range / hz);
-  int duty = (int)(dutyRatio * range);
+  int gpio = gpio_forward;
+  if (powerPercentage < 0){
+    gpio = gpio_backward;
+  }
 
-  pinMode(gpio_18, PWM_OUTPUT);
+  pinMode(gpio, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock(clock);
   pwmSetRange(range);
-  pwmWrite(gpio_18, duty);
+  pwmWrite(gpio, duty);
 
 }
