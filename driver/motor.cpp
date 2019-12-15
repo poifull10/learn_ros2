@@ -23,14 +23,6 @@ void bc::control_motor(float powerPercentage)
   constexpr int gpio_forward = 18;
   constexpr int gpio_backward = 15;
 
-  // PWMの式
-  // PWM周波数 = 19.2MHz / clock / range
-  // 19.2Mhzはラズパイの水晶発振子のクロック数
-
-  // duty比 = duty / range
-  // wiringPiでは rangeを1024固定とし、clockとduty
-  //の2つのパラメータで制御する。
-
   constexpr unsigned int baseclock = 19200000;
   constexpr unsigned int range = 1024;
   constexpr double interval = 10.0; // 10ms
@@ -41,15 +33,16 @@ void bc::control_motor(float powerPercentage)
   double dutyRatio = pulse / interval;
   int duty = (dutyRatio * range);
 
-  int gpio = gpio_forward;
-  if (powerPercentage < 0){
-    gpio = gpio_backward;
-  }
-
-  pinMode(gpio, PWM_OUTPUT);
+  pinMode(gpio_forward, PWM_OUTPUT);
+  pinMode(gpio_backward, PWM_OUTPUT);
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock(clock);
   pwmSetRange(range);
   pwmWrite(gpio, duty);
 
+  if (powerPercentage < 0){
+    digitalWrite(gpio_backward, 1);
+  }else{
+    digitalWrite(gpio_backward, 0);
+  }
 }
