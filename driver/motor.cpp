@@ -34,11 +34,11 @@ void bc::control_motor(float powerPercentage)
   int duty = (dutyRatio * range);
 
   pinMode(gpio_forward, PWM_OUTPUT);
-  pinMode(gpio_backward, PWM_OUTPUT);
+  pinMode(gpio_backward, OUTPUT);
   pwmSetMode(PWM_MODE_MS);
   pwmSetClock(clock);
   pwmSetRange(range);
-  pwmWrite(gpio, duty);
+  pwmWrite(gpio_forward, duty);
 
   if (powerPercentage < 0){
     digitalWrite(gpio_backward, 1);
